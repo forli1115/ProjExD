@@ -6,7 +6,7 @@ import math
 
 def button_click(event): #ボタンがクリックされたときに実行される関数
     btn = event.widget
-    num = btn["text"] #クリックされたボタンの文字
+    num = btn["text"]
     eqn = entry.get()
 
     if num == "=": #計算結果を表示するイコールボタン
