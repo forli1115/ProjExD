@@ -3,7 +3,6 @@ import tkinter.messagebox as tkm
 import math
 
 
-
 def button_click(event): #ボタンがクリックされたときに実行される関数
     btn = event.widget
     num = btn["text"]
