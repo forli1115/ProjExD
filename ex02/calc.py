@@ -1,5 +1,6 @@
 import tkinter as tk
 import tkinter.messagebox as tkm
+import math
 
 
 #ボタンがクリックされたときに実行される関数
@@ -7,19 +8,23 @@ def button_click(event):
     btn=event.widget
     num=btn["text"]#クリックされたボタンの文字
     eqn=entry.get()
-    if num=="=":
+    if num=="=": #計算結果を表示するイコールキー
         res=eval(eqn)
         entry.delete(0,tk.END)
         entry.insert(tk.END,res)
-    elif num=="C":
+    elif num=="C": #1文字消去するクリアキー
         entry.delete(len(eqn)-1,tk.END)
-    elif num=="AC":
+    elif num=="AC": #すべて消去するオールクリアキー
         entry.delete(0,tk.END)
-    elif num=="%":
+    elif num=="%": #%(100で割った数)表示するパーセントキー
         per=int(eqn)/100
         entry.delete(0,tk.END)
         entry.insert(tk.END,per)
-    else:
+    elif num=="!": #階乗計算をするファクトリアルキー
+        fact=math.factorial(int(eqn))
+        entry.delete(0,tk.END)
+        entry.insert(tk.END,fact)
+    else: #数字を表示
         #tkm.showinfo("",f"{num}のボタンがクリックされました")    
         entry.insert(tk.END,num)
 
@@ -31,7 +36,7 @@ if __name__=="__main__":
     entry.grid(row=0,column=0,columnspan=6)#横方向に6マス結合
 
     r,c=1,0   #r:行番号　c:列番号
-    for i,num in enumerate(["AC","C","%","/",7,8,9,"*",4,5,6,"-",1,2,3,"+",0,"00",".","="]):
+    for i,num in enumerate(["AC","C","%","/",7,8,9,"*",4,5,6,"-",1,2,3,"+",0,".","!","="]):
         btn = tk.Button(root,
                         text=num,
                         width=3,
