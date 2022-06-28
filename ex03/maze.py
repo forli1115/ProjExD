@@ -1,9 +1,8 @@
 import tkinter as tk
 
-def key_down(event):
+def key_down(event): 
     global key
     key = event.keysym
-    #print(f"{key}キーが押されました")
 
 
 def key_up(event):
@@ -14,10 +13,10 @@ def key_up(event):
 def main_proc():
     global cx, cy
     delta = { #キー:押されているキー(key),値:移動幅リスト[x,y]　
-        "w"    :[0, -20],
-        "s" :[0, +20],
-        "a" :[-20, 0],
-        "d":[+20, 0],
+        "Up"   :[0, -20],
+        "Down" :[0, +20],
+        "Left" :[-20, 0],
+        "Right":[+20, 0],
         ""     :[0, 0],
     }
     cx, cy = cx+delta[key][0], cy+delta[key][1]
@@ -32,14 +31,14 @@ if __name__ == "__main__":
     canvas = tk .Canvas(root, width=1500, height=900, bg="black")
     canvas.pack()
 
-    bird = tk.PhotoImage(file="fig/0.png")
-    cx, cy =300, 400
+    bird = tk.PhotoImage(file="fig/0.png") #こうかとんの描画
+    cx, cy =300, 400 #初期位置の設定
     canvas.create_image(cx, cy, image=bird, tag="bird")
     
     key = ""
 
-    root.bind("<KeyPress>", key_down)
-    root.bind("<KeyRelease>", key_up)
+    root.bind("<KeyPress>", key_down) #キーが押されたときにkey_down関数が実行
+    root.bind("<KeyRelease>", key_up) #キーが離されたときにkey_up関数が実行
 
     main_proc() 
-    root.mainloop()
+    root.mainloop() #ウィンドウを表示
