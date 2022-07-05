@@ -1,6 +1,18 @@
 import pygame as pg
 import sys
 import random
+import tkinter as tk
+import tkinter.messagebox as tkm
+
+def gameover():
+    tkm.showerror("Game Over", "こうかとんと爆弾が接触しました")
+
+def count_time():
+    time = pg.time.get_ticks()
+    time = time / 1000
+    tkm.showinfo("time",f"生存時間は{time}秒でした")
+
+
 
 def main():
     #練習１
@@ -22,7 +34,10 @@ def main():
     #練習５:爆弾
     bmimg_sfc = pg.Surface((20, 20)) #Surface
     bmimg_sfc.set_colorkey((0, 0, 0))
-    pg.draw.circle(bmimg_sfc, (255, 0, 0), (10, 10), 10)
+    color1 = random.randint(0,255)
+    color2 = random.randint(0,255)
+    color3 = random.randint(0,255)
+    pg.draw.circle(bmimg_sfc, (color1, color2, color3), (10, 10), 10)
     bmimg_rct = bmimg_sfc.get_rect() #Rect
     bmimg_rct.centerx = random.randint(0, screen_rct.width)
     bmimg_rct.centery = random.randint(0, screen_rct.height)
@@ -43,16 +58,17 @@ def main():
         
         #練習４
         key_states = pg.key.get_pressed() #辞書
-        if key_states[pg.K_UP]    == True: kkimg_rct.centery -= 1 
-        if key_states[pg.K_LEFT]  == True: kkimg_rct.centerx -= 1
-        if key_states[pg.K_DOWN]  == True: kkimg_rct.centery += 1
-        if key_states[pg.K_RIGHT] == True: kkimg_rct.centerx += 1
+        #矢印キー、w,a,s,dキーで上下左右に移動する
+        if key_states[pg.K_UP]    or key_states[pg.K_w]  == True: kkimg_rct.centery -= 1 
+        if key_states[pg.K_LEFT]  or key_states[pg.K_a]  == True: kkimg_rct.centerx -= 1
+        if key_states[pg.K_DOWN]  or key_states[pg.K_s]  == True: kkimg_rct.centery += 1
+        if key_states[pg.K_RIGHT] or key_states[pg.K_d]  == True: kkimg_rct.centerx += 1
         #練習７
         if check_bound(kkimg_rct, screen_rct) != (1, 1): #領域外だったら
-            if key_states[pg.K_UP]    == True: kkimg_rct.centery += 1 
-            if key_states[pg.K_LEFT]  == True: kkimg_rct.centerx += 1
-            if key_states[pg.K_DOWN]  == True: kkimg_rct.centery -= 1
-            if key_states[pg.K_RIGHT] == True: kkimg_rct.centerx -= 1
+            if key_states[pg.K_UP]    or key_states[pg.K_w] == True: kkimg_rct.centery += 1 
+            if key_states[pg.K_LEFT]  or key_states[pg.K_a] == True: kkimg_rct.centerx += 1
+            if key_states[pg.K_DOWN]  or key_states[pg.K_s] == True: kkimg_rct.centery -= 1
+            if key_states[pg.K_RIGHT] or key_states[pg.K_d] == True: kkimg_rct.centerx -= 1
         screen_sfc.blit(kkimg_sfc, kkimg_rct) #screen Surfaceにkkimg_sfc Surfaceをkkimg_rctに従って張り付ける
 
         #練習６
@@ -68,6 +84,8 @@ def main():
         
         #練習８
         if kkimg_rct.colliderect(bmimg_rct):
+            gameover()
+            count_time()
             return
 
 
@@ -87,7 +105,13 @@ def check_bound(rct, scr_rct):
     return yoko, tate
 
 if  __name__ == "__main__":
+    root = tk.Tk()
+    root.withdraw()
     pg.init()
     main() 
     pg.quit()
     sys.exit()
+
+
+
+    
