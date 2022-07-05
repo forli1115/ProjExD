@@ -26,6 +26,10 @@ def main():
     bmimg_rct = bmimg_sfc.get_rect() #Rect
     bmimg_rct.centerx = random.randint(0, screen_rct.width)
     bmimg_rct.centery = random.randint(0, screen_rct.height)
+
+    
+
+
     #練習６
     vx, vy = +1, +1
 
@@ -61,6 +65,10 @@ def main():
         yoko, tate = check_bound(bmimg_rct,screen_rct)
         vx *= yoko
         vy *= tate
+        
+        #練習８
+        if kkimg_rct.colliderect(bmimg_rct):
+            return
 
 
         pg.display.update() #画面を更新する
@@ -73,6 +81,7 @@ def check_bound(rct, scr_rct):
     [2] scr_rct: スクリーンのRect    
     '''
     yoko, tate = +1, +1 #領域内
+    #衝突判定
     if rct.left < scr_rct.left or scr_rct.right  < rct.right  : yoko = -1  
     if rct.top < scr_rct.top   or scr_rct.bottom < rct.bottom : tate = -1
     return yoko, tate
