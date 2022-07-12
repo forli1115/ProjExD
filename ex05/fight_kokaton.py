@@ -4,7 +4,7 @@ import random
 import tkinter as tk
 import tkinter.messagebox as tkm
 
-class Death_window:
+class DeathB_window:
     def __init__(self):
     #ゲームオーバーと表示する
         tkm.showerror("Game Over", "こうかとんと爆弾が接触しました")
@@ -13,8 +13,17 @@ class Death_window:
         time = time / 1000
         tkm.showinfo("time",f"生存時間は{time}秒でした")
 
+class DeathE_window:
+    def __init__(self):
+    #ゲームオーバーと表示する
+        tkm.showerror("Game Over", "こうかとんが敵に淘汰されました")
+    #生存時間を表示する
+        time = pg.time.get_ticks()
+        time = time / 1000
+        tkm.showinfo("time",f"生存時間は{time}秒でした")
+
 class Kill_window: 
-    def __init__():
+    def __init__(self):
     #ゲームクリアと表示する
         tkm.showinfo("Game Clear!","こうかとんが敵を排除しました")
     #クリアタイムを表示する
@@ -192,15 +201,15 @@ def main():
 
         
         if kkt.rct.colliderect(bkd.rct): #爆弾と衝突したとき
-            Death_window()
+            DeathB_window()
             return
         
         if kkt.rct.colliderect(bkd2.rct): #爆弾2と衝突したとき
-            Death_window()
+            DeathB_window()
             return
 
         if kkt.rct.colliderect(nme.rct): #敵キャラと衝突したとき
-            Death_window()
+            DeathE_window()
             return
 
         if beam.rct.colliderect(nme.rct): #ビームが敵キャラと衝突したとき            gameclear()
