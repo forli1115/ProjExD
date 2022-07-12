@@ -103,28 +103,6 @@ class Bomb: #爆弾の描画、設定
         self.blit(scr)
 
 
-class Bomb2: #2つ目の爆弾の描画、設定
-    def __init__(self, color, size, vxy, scr: Screen):
-        self.sfc = pg.Surface((2*size, 2*size)) # Surface
-        self.sfc.set_colorkey((0, 0, 0))   #黒い部分を透明化
-        pg.draw.circle(self.sfc, color, (size, size), size)   #円形の爆弾を作る
-        self.rct = self.sfc.get_rect() # Rect
-        self.rct.centerx = random.randint(0, scr.rct.width)   #スタート位置をランダムにする
-        self.rct.centery = random.randint(0, scr.rct.height)
-        self.vx, self.vy = vxy 
-
-    def blit(self, scr: Screen):
-        scr.sfc.blit(self.sfc, self.rct)
-
-    def update(self, scr: Screen):
-        self.rct.move_ip(self.vx, self.vy)   #爆弾移動
-        yoko, tate = check_bound(self.rct, scr.rct)   #こうかとんと爆弾2が画面外に出ないようにする
-        self.vx *= yoko
-        self.vy *= tate
-        
-        self.blit(scr)
-
-
 class Shot: #ビームの描画、設定
     def __init__(self, chr: Bird, vxy):
         self.sfc = pg.image.load("fig/beam.png")
@@ -182,7 +160,7 @@ def main():
     #Shotクラスのインスタンス
     beam = Shot(kkt, (+1,+0))
     
-    # beam = None
+    
     while True:
         scr.blit()   
 
