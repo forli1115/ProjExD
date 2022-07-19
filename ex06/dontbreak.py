@@ -1,4 +1,3 @@
-from itertools import count
 import tkinter
 import tkinter.messagebox as tkm
 import math
